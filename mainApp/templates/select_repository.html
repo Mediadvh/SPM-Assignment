@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Repository</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #90CAF9, #81C2F7, #72CAF5, #64D2F3, #55DAF1, #47E2EF, #38EAFD, #29F2FB, #1AF9F9, #0CFFFF);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .repository-container {
+            max-width: 700px;
+            overflow-y: auto;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .repository {
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .repository-name a {
+            text-decoration: none;
+            color: #0366d6;
+            font-size: 1.2em;
+        }
+
+        .repository-name a:hover {
+            text-decoration: underline;
+        }
+
+        .repository-description {
+            margin-top: 5px;
+            color: #333;
+        }
+
+        h1 {
+            color: #0366d6;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Repositories</h1>
+    <div class="repository-container">
+        {% for repository in repositories %}
+        <div class="repository">
+            <div class="repository-details">
+                <span class="repository-name">
+                    <a href="{% url 'dashboard' owner=repository.owner.login repo=repository.name%}">{{ repository.name }}</a>
+                </span>
+                <p class="repository-description">{{ repository.description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

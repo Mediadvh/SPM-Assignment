@@ -1,0 +1,211 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <style> 
+
+        #pullRequests {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .pullRequest {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .pullRequest a {
+            text-decoration: none;
+            color: #0366d6;
+            font-weight: bold;
+        }
+    body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #contributors {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+    </head>
+    <body>
+      
+
+<h2>Pull Request Trends</h2>
+<div id="pullRequests">Loading pull requests...</div>
+
+
+
+<script>
+    const username = 'apple';
+    const repository = 'swift';
+    const token = access_token;
+    const apiUrl = `https://api.github.com/repos/${username}/${repository}/pulls`;
+
+    async function getGitHubPullRequests() {
+        try {
+            const response = await fetch(apiUrl, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`GitHub API request failed with status ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            const pullRequestsElement = document.getElementById('pullRequests');
+            pullRequestsElement.innerHTML = '<strong>Pull Requests:</strong><ul>';
+            data.forEach(pullRequest => {
+                pullRequestsElement.innerHTML += `
+                    <li class="pullRequest">
+                        <a href="${pullRequest.html_url}" target="_blank">${pullRequest.title}</a> - ${pullRequest.user.login}
+                    </li>`;
+            });
+            pullRequestsElement.innerHTML += '</ul>';
+        } catch (error) {
+            console.error('Error fetching GitHub pull requests:', error.message);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', getGitHubPullRequests);
+
+
+</script>
+ 
+</body>
+</html>
+
+
+
+ -->
+
+
+ <!-- templates/pull_requests.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Dashboard - Pull Requests</title>
+    <style>
+          #pullRequests {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .pullRequest {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .pullRequest a {
+            text-decoration: none;
+            color: #0366d6;
+            font-weight: bold;
+        }
+    body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+           
+        }
+
+         h1 {
+            color: #333;
+        }
+        #contributors {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+       h1, h2 {
+            color: #0366d6;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+       
+
+        <h1>Pull Requests</h1>
+        <ul id="pullRequestsList">
+            {% for pull_request in pull_request_trends %}
+                <li class="pullRequest">
+                    <a href="{{ pull_request.html_url }}" target="_blank">{{ pull_request.title }}</a> - {{ pull_request.user.login }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
+

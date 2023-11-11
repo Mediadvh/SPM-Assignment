@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Github Dashboard Analysis</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, 
+                #90CAF9, #81C2F7, #72CAF5, #64D2F3, #55DAF1, #47E2EF, #38EAFD, #29F2FB, #1AF9F9, #0CFFFF);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: white;
+            font-size: 36px;
+        }
+        .login-button {
+            background-color: #0077b5;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+        
+    </style>
+    
+</head>
+<body>
+    <h1>Github Dashboard Analysis</h1>
+    <a href="{% url 'github_auth' %}" class="login-button">Login with Github</a>
+</body>
+</html> 
+

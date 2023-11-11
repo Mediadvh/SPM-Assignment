@@ -1,0 +1,21 @@
+body {
+    background-color: #d8b2f3; /* Purple background */
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: rgb(41, 35, 35); /* White text color */
+    margin-top: 100px; /* Adjust as needed */
+}
+
+.login-button {
+    display: block;
+    margin: 0 auto;
+    background-color: #489be9; /* Green button color */
+    color: #fff; /* White text color */
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

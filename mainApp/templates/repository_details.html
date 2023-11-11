@@ -1,0 +1,295 @@
+<!-- templates/dashboard_advanced.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Repository Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        h1, h2 {
+            color: #0366d6;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #commits-list {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        #commits-list li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+
+
+
+                body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #pullRequests {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .pullRequest {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .pullRequest a {
+            text-decoration: none;
+            color: #0366d6;
+            font-weight: bold;
+        }
+    body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #contributors {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GitHub Repository Dashboard</h1>
+
+        <h2>Repository Information</h2>
+        <ul>
+            <li><strong>Name:</strong> {{ repo_data.name }}</li>
+            <li><strong>Owner:</strong> {{ repo_data.owner.login }}</li>
+            <li><strong>URL:</strong> <a href="{{ repo_data.html_url }}" target="_blank">{{ repo_data.html_url }}</a></li>
+        </ul>
+
+      
+       
+
+        <h2>Recent Commits</h2>
+        <ul id="commits-list">
+            {% for commit in commits_data %}
+                <li>
+                    <strong>{{ commit.commit.author.name }}</strong> committed on {{ commit.commit.author.date }}:
+                    {{ commit.commit.message }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+        // Fetch and display pull request trends data
+        function fetchAndDisplayPullRequestTrends() {
+            // Fetch pull request trends data (replace this with your actual data-fetching logic)
+            const pullRequestTrendsData = {
+                labels: ["date?"],
+                data: pull_request_trends,
+            };
+
+            // Create a chart
+            const ctxPullRequest = document.getElementById('pullRequestChart').getContext('2d');
+            const pullRequestChart = new Chart(ctxPullRequest, {
+                type: 'bar',
+                data: {
+                    labels: pullRequestTrendsData.labels,
+                    datasets: [{
+                        label: 'Pull Request Trends',
+                        data: pullRequestTrendsData.data,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                    }]
+                },
+            });
+        }
+
+        // Call the function to fetch data and create the pull request trends chart
+        fetchAndDisplayPullRequestTrends();
+    </script>
+
+
+    <h1>GitHub Repository Pull Requests</h1>
+<div id="pullRequests">Loading pull requests...</div>
+  <p>Access Token: {{ access_token }}</p>
+<script>
+    const username = 'apple';
+    const repository = 'swift';
+    const token = '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';
+    const apiUrl = `https://api.github.com/repos/${username}/${repository}/pulls`;
+
+    async function getGitHubPullRequests() {
+        try {
+            const response = await fetch(apiUrl, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`GitHub API request failed with status ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            const pullRequestsElement = document.getElementById('pullRequests');
+            pullRequestsElement.innerHTML = '<strong>Pull Requests:</strong><ul>';
+            data.forEach(pullRequest => {
+                pullRequestsElement.innerHTML += `
+                    <li class="pullRequest">
+                        <a href="${pullRequest.html_url}" target="_blank">${pullRequest.title}</a> - ${pullRequest.user.login}
+                    </li>`;
+            });
+            pullRequestsElement.innerHTML += '</ul>';
+        } catch (error) {
+            console.error('Error fetching GitHub pull requests:', error.message);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', getGitHubPullRequests);
+
+
+</script>
+
+
+
+
+<h1>contributors</h1>
+<div id="contributors">Loading contributors...</div>
+
+<script>
+ 
+    const urlapi = `https://api.github.com/repos/${username}/${repository}/stats/contributors`;
+
+    async function getGitHubInsights() {
+        try {
+            const response = await fetch(urlapi, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`GitHub API request failed with status ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            const contributorsElement = document.getElementById('contributors');
+            contributorsElement.innerHTML = '<strong>Contributors:</strong><ul>';
+            data.forEach(contributor => {
+                contributorsElement.innerHTML += `<li>${contributor.author.login} - ${contributor.total} contributions</li>`;
+            });
+            contributorsElement.innerHTML += '</ul>';
+        } catch (error) {
+            console.error('Error fetching GitHub insights:', error.message);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', getGitHubInsights);
+</script>
+
+
+</body>
+</html>

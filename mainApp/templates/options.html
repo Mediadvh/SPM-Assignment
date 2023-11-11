@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Repositories</title>
+    <style>
+        /* Center elements horizontally and vertically */
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        body {
+            background: linear-gradient(to bottom, 
+                #90CAF9, #81C2F7, #72CAF5, #64D2F3, #55DAF1, #47E2EF, #38EAFD, #29F2FB, #1AF9F9, #0CFFFF);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .btn {
+        background-color: #0077b5;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        width: 200px; /* Set the width to the desired value */
+        margin: 20px 0;
+        cursor: pointer;
+        }
+
+        /* Style for buttons */
+        .btn {
+            background-color: #0077b5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+        h1 {
+            color: white;
+            font-size: 36px;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-content">
+        <h1>Github Dashboard Analysis</h1>
+
+        <a href="{% url 'select_repository' %}" class="btn">My Repositories</a>
+        <a href="{% url 'sign_out' %}" class="btn">Sign Out</a>
+        <a href="{% url 'dashboard' owner='apple' repo='swift' %}" class="btn">Swift repository</a>
+
+    </div>
+</body>
+</html>

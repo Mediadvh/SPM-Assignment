@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Dashboard - Issue Resolution Time</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #0366d6;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GitHub Dashboard - Issue Resolution Time</h1>
+
+        <h2>Issue Resolution</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Issue Number</th>
+                    <th>Title</th>
+                    <th>Resolution Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for issue in issue_data %}
+                    <tr>
+                        <td>{{ issue.number }}</td>
+                        <td>{{ issue.title }}</td>
+                        <td>{{ issue.resolution_time }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contributor Activity</title>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    console.log(Chart);  // This should output the Chart.js library object
+</script>
+
+    <style>
+        /* Add your custom styles here */
+        canvas {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contributor Activity Chart</h1>
+
+    <!-- Container for the chart -->
+    <div style="width: 80%; margin: auto;">
+        <canvas id="contributorChart"></canvas>
+    </div>
+
+    <script>
+        // Replace this sample data with the real data fetched from fetch_contributor_activity
+        const contributorData = { contributor_activity_data_json };
+
+        // Convert date strings to Date objects
+        contributorData.labels = contributorData.labels.map(dateString => new Date(dateString));
+
+        // Create a chart
+        const ctx = document.getElementById('contributorChart').getContext('2d');
+        const contributorChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: contributorData.labels,
+                datasets: [{
+                    label: 'Contributor Activity',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    data: contributorData.data,
+                    fill: true,
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'day',
+                            displayFormats: {
+                                day: 'MMM D',
+                            },
+                        },
+                        title: {
+                            display: true,
+                            text: 'Date',
+                        },
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Contributions',
+                        },
+                    },
+                },
+            },
+        });
+
+
+      console.log({ contributor_activity_data_json });
+      console.log('Labels:', { contributor_activity_data_json,labels });
+      console.log('Data:', { contributor_activity_data_json,data });
+
+    </script>
+</body>
+</html>

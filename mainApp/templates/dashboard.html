@@ -1,0 +1,143 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Dashboard</title>
+    
+    <style>
+
+        .btn {
+        background-color: #0077b5;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        width: 200px; /* Set the width to the desired value */
+        margin: 20px 0;
+        cursor: pointer;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        h1, h2 {
+            color: #0366d6;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+        
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            width: 200px; /* Set the width to the desired value */
+            margin: 20px 0;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #034a80;
+        }
+        .btn {
+        background-color: #0077b5;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        width: 200px; /* Set the width to the desired value */
+        margin: 20px 0;
+        cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GitHub Dashboard</h1>
+
+        <ul>
+             <h2>Repository Information</h2>
+        <ul>
+            <li><strong>Name:</strong> {{ repo_data.name }}</li>
+            <li><strong>Owner:</strong> {{ repo_data.owner.login }}</li>
+            <li><strong>URL:</strong> <a href="{{ repo_data.html_url }}" target="_blank">{{ repo_data.html_url }}</a></li>
+        </ul>
+
+      
+            <li>
+                <a href="{% url 'recent_commits' owner=repo_data.owner.login repo=repo_data.name %}">
+                    <button>Recent Commits</button>
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'pull_requests' owner=repo_data.owner.login repo=repo_data.name %}">
+                    <button>Pull Requests</button>
+                </a>
+            </li>
+           
+
+            <li>
+                <a href="{% url 'issue_resolution' owner=repo_data.owner.login repo=repo_data.name %}">
+               
+                    <button>issue resolution</button>
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'insights' owner=repo_data.owner.login repo=repo_data.name %}">
+               
+                    <button>insights</button>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</body>
+</html>
